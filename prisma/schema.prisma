@@ -11,3 +11,34 @@ generator client {
 datasource db {
   provider = "postgresql"
 }
+
+model User {
+  id    String    @id @default(uuid())
+  username  String    @unique 
+  email     String    @unique
+  fullName  String
+  avatarUrl  String
+  coverImag  String 
+  watchHistory Video[]
+  password  String 
+  refreshToken String?
+  createdAt DateTime @default(now())
+  updatedAt DateTime @updatedAt
+
+  @@index([username])
+}
+
+model Video {
+  id String @id @default(uuid())
+  videoFile  String  //Cloudinary URL
+  thumbnail String 
+  title String 
+  description String 
+  duration Int 
+  views Int @default(0)
+  isPublished Boolean @default(true)
+  owner User @relation(fields: [ownerId], references: [id])
+  ownerId String
+  createdAt DateTime @default(now())
+  updatedAt DateTime @updatedAt
+}

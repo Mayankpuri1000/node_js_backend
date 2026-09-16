@@ -12,4 +12,5 @@ app.get("/", (req: Request, res: Response) => {
 
 app.listen(port, () => {
     console.log(`Server is running successfully on http://localhost:${port}`)
+    console.log("Postgres connected successfully ✅");
 })
